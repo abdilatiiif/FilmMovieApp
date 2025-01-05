@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import "../css/app.css";
+import "/src/components/MovieCard.jsx";
 import { FaPlay, FaHeart, FaComment, FaDownload } from "react-icons/fa";
 
 function MovieCard(props) {

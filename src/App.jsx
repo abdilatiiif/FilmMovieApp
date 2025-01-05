@@ -1,4 +1,4 @@
-import "./css/app.css";
+import "./app.css";
 import { useEffect } from "react"; // we want to get the data asap when the app starts
 import { FaSearch } from "react-icons/fa";
 import MovieCard from "./components/MovieCard";
