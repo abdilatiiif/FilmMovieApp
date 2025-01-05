@@ -8,22 +8,32 @@ import { useState } from "react";
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [response, setResponse] = useState(true);
+  const [response, setResponse] = useState(null);
 
   const searchMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`);
-    const data = await response.json();
+    try {
+      const response = await fetch(`${API_URL}&s=${title}`);
 
-    setResponse(false);
-    console.log(data.Response);
-    setMovies(data.Search);
+      const data = await response.json();
+
+      if (data.Response === "False") {
+        setResponse("False");
+        throw new Error(data.Error);
+      } else {
+        setResponse("True");
+      }
+
+      setMovies(data.Search);
+    } catch (error) {
+      console.log(error);
+
+      movies([]);
+    }
   };
 
   useEffect(() => {
     searchMovies("sniper");
   }, []);
-
-  console.log(movies.length);
 
   return (
     <main className="container mx-auto h-screen px-5 py-8 m-0 bg-stone-700">
@@ -43,22 +53,18 @@ function App() {
         <FaSearch
           className="w-16 h-12 ml-3"
           onClick={() => {
-            console.log(searchTerm);
-
             searchMovies(searchTerm);
           }}
         />
       </div>
 
-      {movies.length > 0 && (
+      {response === "True" ? (
         <div className="container movie-grid">
           {movies.map((movie) => (
             <MovieCard movie={movie} key={movie.imdbID} />
           ))}
         </div>
-      )}
-
-      {response === false && (
+      ) : (
         <div>
           <h2>No movies found</h2>
         </div>
