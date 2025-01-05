@@ -2,7 +2,7 @@ import "./css/app.css";
 import { useEffect } from "react"; // we want to get the data asap when the app starts
 import { FaSearch } from "react-icons/fa";
 import MovieCard from "./components/MovieCard";
-const API_URL = "http://www.omdbapi.com?apikey=c032e2d7";
+const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=48fbb5a9";
 import { useState } from "react";
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
 
   useEffect(() => {
     searchMovies("sniper");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
